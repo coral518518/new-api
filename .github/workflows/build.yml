@@ -9,27 +9,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 拉代码
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # Node环境
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # 安装依赖
       - name: Install deps
+        working-directory: web
         run: npm install
 
-      # 构建
       - name: Build
+        working-directory: web
         run: npm run build
 
-      # 上传dist产物
       - name: Upload dist
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: dist
+          path: web/dist
